@@ -206,6 +206,11 @@ rcf/
 
 # Windows Store app package directories and files
 AppPackages/
+
+.DS_Store
+
+.idea
+
 BundleArtifacts/
 Package.StoreAssociation.xml
 _pkginfo.txt
