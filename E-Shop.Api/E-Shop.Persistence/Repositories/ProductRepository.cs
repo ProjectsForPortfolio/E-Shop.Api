@@ -1,40 +1,40 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using E_Shop.Api.Models;
+using E_Shop.Persistence.Models;
 using MongoDB.Driver;
 
 namespace E_Shop.Api.Repositories
 {
     public class ProductRepository : IProductRepository
     {
-        private readonly IMongoCollection<Product> collection;
+        private readonly IMongoCollection<ProductEntity> collection;
         public ProductRepository(IMongoDatabase mongoDb)
         {
-            collection = mongoDb.GetCollection<Product>("Products");
+            collection = mongoDb.GetCollection<ProductEntity>("Products");
         }
 
-        public async Task<IEnumerable<Product>> Get()
+        public async Task<IEnumerable<ProductEntity>> Get()
         {
             return (await collection.FindAsync(item => true)).ToList();
         }
 
-        public async Task<Product> Get(string id)
+        public async Task<ProductEntity> Get(string id)
         {
             return (await collection.FindAsync(item => item.Id == id)).FirstOrDefault();
         }
 
-        public async Task<Product> Create(Product item)
+        public async Task<ProductEntity> Create(ProductEntity item)
         {
             await collection.InsertOneAsync(item);
             return item;
         }
 
-        public async Task Update(string id, Product item)
+        public async Task Update(string id, ProductEntity item)
         {
             await collection.ReplaceOneAsync(record => record.Id == id, item);
         }
 
-        public async Task Remove(Product item) =>
+        public async Task Remove(ProductEntity item) =>
              await Remove(item.Id);
 
         public async Task Remove(string id) =>

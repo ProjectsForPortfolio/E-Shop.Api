@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using E_Shop.Api.Models;
+using E_Shop.Api.Domain.Models;
 using E_Shop.Api.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,7 +22,7 @@ namespace E_Shop.Api.Controllers
             return Ok(await productService.Get());
         }
 
-        [HttpGet("{id:length(24)}", Name ="GetProduct")]
+        [HttpGet("{id:length(24)}", Name = "GetProduct")]
         public async Task<ActionResult<Product>> Get(string id)
         {
             return Ok(await productService.Get(id));
@@ -31,15 +31,15 @@ namespace E_Shop.Api.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(Product product)
         {
-            await productService.Create(product);
+            var id = await productService.Create(product);
 
-            return CreatedAtRoute("GetProduct", new { id = product.Id.ToString() }, product);
+            return CreatedAtRoute("GetProduct", new { id = id }, product);
         }
 
         [HttpPut("{id:length(24)}")]
-        public async Task<ActionResult> Update(string id,Product product)
+        public async Task<ActionResult> Update(string id, Product product)
         {
-            var item =  await productService.Get(id);
+            var item = await productService.Get(id);
 
             if (item == null)
             {
@@ -60,7 +60,7 @@ namespace E_Shop.Api.Controllers
             {
                 return NotFound();
             }
-            
+
             await productService.Delete(id);
             return NoContent();
         }

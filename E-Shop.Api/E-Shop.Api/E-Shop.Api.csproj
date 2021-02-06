@@ -9,4 +9,10 @@
       <PackageReference Include="MongoDB.Driver" Version="2.11.6" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\E-Shop.Domain\E-Shop.Domain.csproj" />
+      <ProjectReference Include="..\E-Shop.Infrastructure\E-Shop.Infrastructure.csproj" />
+      <ProjectReference Include="..\E-Shop.Persistence\E-Shop.Persistence.csproj" />
+    </ItemGroup>
+
 </Project>
