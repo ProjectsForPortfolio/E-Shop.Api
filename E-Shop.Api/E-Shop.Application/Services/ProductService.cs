@@ -1,43 +1,37 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using AutoMapper;
-using E_Shop.Api.Domain.Models;
-using E_Shop.Api.Repositories;
-using E_Shop.Persistence.Models;
+using E_Shop.Domain.Models;
+using E_Shop.Repositories;
 
-namespace E_Shop.Api.Services
+namespace E_Shop.Application.Services
 {
     public class ProductService : IProductService
     {
         private readonly IProductRepository repository;
-        private readonly IMapper mapper;
-        public ProductService(
-            IProductRepository repository,
-            IMapper mapper)
+        public ProductService(IProductRepository repository)
         {
             this.repository = repository;
-            this.mapper = mapper;
         }
 
         public async Task<IEnumerable<Product>> Get()
         {
-            return mapper.Map<IEnumerable<Product>>(await repository.Get());
+            return await repository.Get();
         }
 
         public async Task<Product> Get(string id)
         {
-            return mapper.Map<Product>(await repository.Get(id));
+            return await repository.Get(id);
         }
 
         public async Task<string> Create(Product product)
         {
-            var result = await repository.Create(mapper.Map<ProductEntity>(product));
+            var result = await repository.Create(product);
             return result.Id;
         }
 
         public async Task Update(string id, Product product)
         {
-            await repository.Update(id, mapper.Map<ProductEntity>(product));
+            await repository.Update(id, product);
         }
 
         public async Task Delete(string id)

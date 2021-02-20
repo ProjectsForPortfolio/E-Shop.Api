@@ -1,10 +1,11 @@
-using E_Shop.Api.Repositories;
-using E_Shop.Api.Services;
+using E_Shop.Repositories;
+using E_Shop.Application.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
 
 namespace E_Shop.Api
@@ -30,11 +31,14 @@ namespace E_Shop.Api
             services.AddSingleton<IProductService, ProductService>();
 
             services.AddAutoMapper(typeof(Startup));
+            services.AddLogging();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
+            loggerFactory.AddLog4Net();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

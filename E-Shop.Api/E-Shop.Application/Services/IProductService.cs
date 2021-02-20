@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using E_Shop.Api.Domain.Models;
+using E_Shop.Domain.Models;
 
-namespace E_Shop.Api.Services
+namespace E_Shop.Application.Services
 {
     public interface IProductService
     {

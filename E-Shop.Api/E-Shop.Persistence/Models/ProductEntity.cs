@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson;
+﻿using System;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace E_Shop.Persistence.Models
@@ -7,6 +8,7 @@ namespace E_Shop.Persistence.Models
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
+        [BsonIgnoreIfDefault]
         public string Id { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using E_Shop.Api.Domain.Models;
-using E_Shop.Api.Services;
+using E_Shop.Domain.Models;
+using E_Shop.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace E_Shop.Api.Controllers
@@ -17,6 +17,7 @@ namespace E_Shop.Api.Controllers
         }
 
         [HttpGet]
+        [LogHttpBodyAttribute]
         public async Task<ActionResult<IEnumerable<Product>>> Get()
         {
             return Ok(await productService.Get());
@@ -37,6 +38,7 @@ namespace E_Shop.Api.Controllers
         }
 
         [HttpPut("{id:length(24)}")]
+        [LogHttpBodyAttribute]
         public async Task<ActionResult> Update(string id, Product product)
         {
             var item = await productService.Get(id);

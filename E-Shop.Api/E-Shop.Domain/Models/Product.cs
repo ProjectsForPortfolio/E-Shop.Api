@@ -1,4 +1,4 @@
-﻿namespace E_Shop.Api.Domain.Models
+﻿namespace E_Shop.Domain.Models
 {
     public class Product
     {
